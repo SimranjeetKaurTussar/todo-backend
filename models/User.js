@@ -1,7 +1,8 @@
 //User.js
 
 import { Schema, model } from 'mongoose';
-import { genSalt, hash, compare } from 'bcryptjs';
+import bcrypt from 'bcryptjs';
+const { genSalt, hash, compare } = bcrypt; 
 
 const UserSchema = new Schema({
   username: { type: String, required: true, unique: true },

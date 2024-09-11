@@ -1,9 +1,10 @@
 // auth.js
 
-const express = require('express');
-const jwt = require('jsonwebtoken');
-const User = require('../models/User');
-const router = express.Router();
+import { Router } from 'express';
+import jwt from 'jsonwebtoken';
+const sign  = jwt;
+import User from '../models/User.js';
+const router = Router();
 
 router.post('/register', async (req, res) => {
   const { username, email, password } = req.body;
@@ -19,7 +20,7 @@ router.post('/register', async (req, res) => {
 router.post('/login', async (req, res) => {
   const { email, password } = req.body;
   try {
-    const user = await User.findOne({ email });
+    const user = await findOne({ email });
     if (!user || !(await user.comparePassword(password))) {
       return res.status(400).send('Invalid credentials');
     }
@@ -31,4 +32,4 @@ router.post('/login', async (req, res) => {
   }
 });
 
-module.exports = router;
+export default router;

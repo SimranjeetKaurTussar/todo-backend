@@ -1,23 +1,31 @@
 //server.js
 
-const express = require('express');
-const mongoose = require('mongoose');
-const cors = require('cors');
-require('dotenv').config();
-const authRoutes = require('./routes/auth');
-const taskRoutes = require('./routes/tasks');
+import express from "express";
+import mongoose from "mongoose";
+import jwt from "jsonwebtoken";
+import cors from "cors"; // Import cors
+import dotenv from "dotenv";
+import authRoutes from "./routes/auth.js";
+import taskRoutes from "./routes/tasks.js";
+
+dotenv.config(); // Load environment variables from .env file
 
 const app = express();
+const PORT = process.env.PORT || 5000;
+
+
 app.use(cors());
 app.use(express.json());
-app.use('/api/auth', authRoutes);
-app.use('/api', taskRoutes);
+app.use("/api/auth", authRoutes);
+app.use("/api/tasks", taskRoutes);
 
-const PORT = process.env.PORT || 5000;
-const MONGO_URI = process.env.MONGO_URI;
+// Database connection
+const MONGO_URI = 'mongodb://localhost:27017/myDatabase'; 
 
 mongoose.connect(MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
-  .then(() => console.log('MongoDB connected'))
-  .catch(err => console.log(err));
+  .then(() => console.log('MongoDB connected successfully'))
+  .catch((err) => console.error('MongoDB connection error:', err));
 
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
+});

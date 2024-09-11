@@ -1,8 +1,8 @@
 // tasks.js
 
-const express = require("express");
-const Task = require("../models/Task");
-const router = express.Router();
+import { Router } from "express";
+import Task from "../models/Task.js";
+const router = Router();
 
 const authenticate = (req, res, next) => {
   const token = req.headers["authorization"]?.split(" ")[1];
@@ -59,4 +59,4 @@ router.delete("/tasks/:id", authenticate, async (req, res) => {
   }
 });
 
-module.exports = router;
+export default router;
