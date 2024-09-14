@@ -1,4 +1,4 @@
-//User.js
+// models/User.js
 
 import { Schema, model } from 'mongoose';
 import bcrypt from 'bcryptjs';
